@@ -39,7 +39,7 @@
       const date = document.getElementById('date').value;
       const category = document.getElementById('category').value;
 
-      fetch('http://3.108.51.105:3000/addExpense', {  // <-- replace with your EC2 public IP
+      fetch('http://13.235.48.75:3000/addExpense', {  // <-- replace with your EC2 public IP
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({amount, date, category})
