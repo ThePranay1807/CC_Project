@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Daily Expense Tracker</h1>
+  </header>
+
+  <div class="container">
+    <div class="input-box">
+      <label>Amount</label>
+      <input type="number" id="amount" placeholder="Enter amount">
+    </div>
+    <div class="input-box">
+      <label>Date</label>
+      <input type="date" id="date">
+    </div>
+    <div class="input-box">
+      <label>Category</label>
+      <select id="category">
+        <option value="food">Food</option>
+        <option value="medicine">Medicine</option>
+        <option value="clothes">Clothes</option>
+        <option value="travel">Travel</option>
+        <option value="others">Others</option>
+      </select>
+    </div>
+    <button id="addBtn">Add Expense</button>
+  </div>
+
+  <script>
+    document.getElementById('addBtn').addEventListener('click', function() {
+      const amount = document.getElementById('amount').value;
+      const date = document.getElementById('date').value;
+      const category = document.getElementById('category').value;
+
+      fetch('http://<EC2_PUBLIC_IP>:3000/addExpense', {  // <-- replace with your EC2 public IP
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({amount, date, category})
+      })
+      .then(res => res.text())
+      .then(msg => alert(msg))
+      .catch(err => alert('Error: ' + err));
+
+      document.getElementById('amount').value = '';
+      document.getElementById('date').value = '';
+      document.getElementById('category').value = 'food';
+    });
+  </script>
+</body>
+</html>
